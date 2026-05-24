@@ -1,0 +1,62 @@
+-- 1. Creación de la Base de Datos (Ajusta el nombre si tu profesor os pide otro)
+CREATE DATABASE IF NOT EXISTS academia_db;
+USE academia_db;
+
+-- 2. Limpieza de tablas previas por si acaso repites la ejecución
+DROP TABLE IF EXISTS curso;
+DROP TABLE IF EXISTS usuario;
+
+-- 3. Creación de la tabla de Usuarios (para el Login y los Roles)
+CREATE TABLE usuario (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    rol VARCHAR(20) NOT NULL -- 'Admin' o 'User'
+);
+
+-- 4. Creación de la tabla de Cursos (Mapeada exactamente con tu MVC)
+CREATE TABLE curso (
+    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    horas INT NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    tipo VARCHAR(20) NOT NULL, -- 'Presencial' u 'Online'
+    descripcion TEXT,
+    url_imagen VARCHAR(255)
+);
+
+-- ==========================================================
+-- 5. INSERCIÓN DE DATOS DE PRUEBA (Para llegar y probar en vivo)
+-- ==========================================================
+
+-- Usuarios de prueba
+INSERT INTO usuario (username, password, rol) VALUES 
+('admin', 'admin123', 'Admin'),
+('user', 'user123', 'User');
+
+-- Cursos de prueba (con las imágenes reales que estabas usando en tus pruebas)
+INSERT INTO curso (nombre, horas, precio, tipo, descripcion, url_imagen) VALUES 
+(
+  'Programación Java Básica', 
+  40, 
+  150.00, 
+  'Presencial', 
+  'Curso de introducción al lenguaje Java. Aprenderás variables, bucles, arrays y los fundamentos de la Programación Orientada a Objetos.', 
+  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500'
+),
+(
+  'Bases de Datos y JDBC', 
+  30, 
+  110.00, 
+  'Presencial', 
+  'Conecta tus aplicaciones Java con MySQL. Modelado de datos, consultas complejas, transacciones y arquitectura DAO profesional.', 
+  'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500'
+),
+(
+  'Desarrollo de Interfaces con Swing', 
+  25, 
+  99.99, 
+  'Presencial', 
+  'Aprende a diseñar aplicaciones de escritorio espectaculares utilizando Java Swing, layouts avanzados, gestión de ventanas y controladores.', 
+  'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=500'
+);
